@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammad Ibrahim - Business Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-dark: #121e31;
+            --accent-gold: #c5a059;
+            --bg-light: #f8f9fa;
+            --wp-green: #25D366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
+        body { background-color: var(--bg-light); color: #333; overflow-x: hidden; }
+
+        /* Navigation */
+        nav {
+            background: var(--primary-dark);
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #121e31 0%, #1e2d45 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 100px 10%;
+            min-height: 500px;
+        }
+
+        .hero-text h1 { font-size: 55px; letter-spacing: 1px; line-height: 1.2; }
+        .hero-text p { color: var(--accent-gold); font-size: 26px; font-weight: bold; margin-bottom: 30px; }
+        
+        .hero-img { 
+            width: 450px; 
+            border-bottom: 8px solid var(--accent-gold); 
+            filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.5));
+        }
+
+        .btn-gold {
+            background: var(--accent-gold);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        /* Container */
+        .container { max-width: 1300px; margin: auto; padding: 60px 20px; }
+
+        .about-box {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 70px;
+        }
+        .about-thumb { 
+            width: 180px; 
+            height: 180px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 5px solid var(--accent-gold); 
+        }
+
+        h2 { font-size: 32px; margin-bottom: 40px; color: var(--primary-dark); text-transform: uppercase; text-align: center; font-weight: 700; }
+
+        /* Grid System */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
+            gap: 40px; 
+        }
+        
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+            transition: 0.4s ease;
+        }
+        .card:hover { transform: translateY(-10px); }
+        
+        .card img { 
+            width: 100%; 
+            height: 450px; 
+            object-fit: contain; 
+            margin-bottom: 25px; 
+            border: 2px solid #f0f0f0; 
+            cursor: pointer; 
+            background: #fafafa;
+            border-radius: 8px;
+        }
+
+        /* Video Section */
+        .video-container {
+            margin: 100px 0;
+            text-align: center;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; 
+            height: 0;
+            overflow: hidden;
+            max-width: 900px;
+            margin: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 5px solid white;
+        }
+        .video-wrapper video {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* Contact Section */
+        .contact-section { display: flex; gap: 40px; margin-top: 60px; align-items: stretch; }
+        .contact-info { flex: 1; }
+        
+        .whatsapp-card {
+            background: var(--wp-green);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .map-box { flex: 1.2; border-radius: 15px; overflow: hidden; height: 350px; border: 3px solid #eee; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            padding-top: 20px;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.95);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: auto;
+            max-width: 95%;
+            max-height: 90vh;
+            border-radius: 10px;
+            animation: zoom 0.3s;
+        }
+        @keyframes zoom { from {transform:scale(0.7)} to {transform:scale(1)} }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 35px;
+            color: #ff3333; 
+            font-size: 80px; 
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+            line-height: 1;
+        }
+        .close-modal:hover { color: #ffffff; }
+
+        /* --- SORA SORI ORIGINAL WHATSAPP LOGO --- */
+        .wp-float {
+            position: fixed;
+            width: 65px;
+            height: 65px;
+            bottom: 40px;
+            left: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 35px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            animation: bounceWp 2s infinite;
+        }
+
+        @keyframes bounceWp {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-7px);}
+        }
+
+        .wp-float:hover {
+            background-color: #128c7e;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 992px) {
+            .hero { flex-direction: column; text-align: center; padding: 60px 5%; }
+            .hero-img { width: 90%; max-width: 400px; margin-top: 40px; }
+            .hero-text h1 { font-size: 40px; }
+            .about-box { flex-direction: column; text-align: center; }
+            .contact-section { flex-direction: column; }
+            .grid { grid-template-columns: 1fr; }
+            .wp-float { width: 55px; height: 55px; bottom: 20px; left: 20px; font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/17167801604" class="wp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <nav>
+        <div><b style="font-size: 20px;">Mohammad Ibrahim</b></div>
+        <div style="font-weight: 500;">"সততাই আমাদের মূলধন, সেবাই আমাদের লক্ষ্য।"</div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Mohammad Ibrahim</h1>
+            <p>BUSINESS PORTAL</p>
+            <a href="https://wa.me/17167801604" class="btn-gold">Service Now</a>
+        </div>
+        <img src="img/me1.jpeg" alt="Profile" class="hero-img">
+    </section>
+
+    <div class="container">
+        <div class="about-box">
+            <img src="img/me.jpeg" class="about-thumb">
+            <div>
+                <h3 style="font-size: 28px; margin-bottom: 15px;">আমার সম্পর্কে</h3>
+                <p style="font-size: 18px; line-height: 1.8;">স্বাগতম! আমি মোহাম্মদ ইব্রাহিম। আমার এই পোর্টালে আপনি আমার ব্যবসার যাবতীয় প্রয়োজনীয় নথিপত্র এবং সেবাসমূহ দেখতে পাবেন। স্বচ্ছতা এবং নির্ভরযোগ্যতাই আমার ব্যবসার মূল ভিত্তি।</p>
+            </div>
+        </div>
+
+        <h2>অফিসিয়াল নথিপত্র (Credentials)</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="img/tin.png" onclick="openModal(this)">
+                <h4>TIN Certificate</h4>
+                <p>ট্যাক্স আইডেন্টিফিকেশন নম্বর।</p>
+            </div>
+            <div class="card">
+                <img src="img/tax.png" onclick="openModal(this)">
+                <h4>Tax Registration Certificate</h4>
+                <p>ব্যবসার বৈধ অনুমতিপত্র।</p>
+            </div>
+            <div class="card">
+                <img src="img/id.png" onclick="openModal(this)">
+                <h4>Identity</h4>
+                <p>সঠিক ব্যবসায়িক পরিচয়পত্র।</p>
+            </div>
+        </div>
+
+        <div class="video-container">
+            <h2>আমাদের পরিচিতি ভিডিও</h2>
+            <div class="video-wrapper">
+                <video controls poster="img/v.png">
+                    <source src="img/v.mp4" type="video/mp4">
+                    আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
+                </video>
+            </div>
+        </div>
+
+        <h2>আমার সেবাসমূহ (Services)</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="img/pr1.png" onclick="openModal(this)">
+                <h4>ইন্টারনেট অফার</h4>
+                <p>৩০ দিন মেয়াদি ইন্টারনেট অফার।</p>
+            </div>
+            <div class="card">
+                <img src="img/pr2.png" onclick="openModal(this)">
+                <h4>আন্তর্জাতিক সার্ভিস</h4>
+                <p>চলবে সৌদি, ওমান সহ সকল দেশে।</p>
+            </div>
+            <div class="card">
+                <img src="img/pr3.png" onclick="openModal(this)">
+                <h4>সহজ ডেলিভারি</h4>
+                <p>সহজে কার্ড ডেলিভারি।</p>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 80px;">যোগাযোগ করুন</h2>
+        <div class="contact-section">
+            <div class="contact-info">
+                <a href="https://wa.me/17167801604" class="whatsapp-card">
+                    <i class="fab fa-whatsapp" style="font-size: 40px;"></i>
+                    <div>হোয়াটসঅ্যাপ মেসেজ পাঠান<br><small style="font-size: 16px;">+1(716)780-1604</small></div>
+                </a>
+                <div style="margin-top:30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <p style="font-size: 18px;">📍 <b>ঠিকানা:</b>রিয়াদ,সৌদি আরব</p>
+                    <p style="font-size: 18px; margin-top: 10px;">📧 <b>ইমেইল:</b> info@ibrahim.com</p>
+                </div>
+            </div>
+            <div class="map-box">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d233667.82239243773!2d46.48361453281251!3d24.713551699999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d87411d%3A0x65a5743e1d7596b!2sRiyadh%20Saudi%20Arabia!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">×</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <footer style="text-align: center; padding: 60px; color: #ffffff; background: var(--primary-dark); margin-top: 80px;">
+        <p style="font-size: 18px;">© 2026 Mohammad Ibrahim. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function openModal(element) {
+            document.getElementById("myModal").style.display = "block";
+            document.getElementById("img01").src = element.src;
+            document.body.style.overflow = "hidden";
+        }
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("myModal")) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
